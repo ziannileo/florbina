@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flor - Bina</title>
+    <title>Bina</title>
 
     <style>
         * {
@@ -43,8 +43,16 @@
         }
 
         @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+            
             .fundo {
                 background-position: center center;
+            }
+
+            .custom-cursor, .trail-heart {
+                display: none !important;
             }
         }
 
@@ -221,7 +229,7 @@
 
     <section>
         <div class="content">
-            <h1 class="titleWrite">&#x2764 Eu te amo, Bina &#x2764</h1>
+            <h1 class="titleWrite">Eu te amo, Bina &#x2764</h1>
 
             <div class="message">
                 <p class="typeParagraph">Desde que tu chegou em minha vida tudo ficou mais leve e bonito.</p>
@@ -403,6 +411,27 @@
         if (firstArrow && secondSection) {
             firstArrow.addEventListener('click', () => {
                 secondSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+        if (!isTouchDevice) {
+            const cursor = document.createElement('div');
+            cursor.className = 'custom-cursor';
+            document.body.appendChild(cursor);
+
+            document.addEventListener('mousemove', e => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+
+                const trail = document.createElement('div');
+                trail.className = 'trail-heart';
+                trail.style.left = e.clientX + 'px';
+                trail.style.top = e.clientY + 'px';
+                document.body.appendChild(trail);
+
+                setTimeout(() => trail.remove(), 1000);
             });
         }
 
